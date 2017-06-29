@@ -1,0 +1,62 @@
+---
+fps: 25
+badgerfps: 12
+badger_every: 8
+assets:
+ background: assets/background.png
+ sprite: assets/dickbutt-badger-2.png
+ mushroom: assets/mushroom-goatse.png
+ snake: assets/cup.png
+timeline:
+ -
+  - 20
+  - 300
+  - 1
+ -
+  - 250
+  - 285
+  - 0.92
+ -
+  - 500
+  - 235
+  - 0.84
+ -
+  - 135
+  - 200
+  - 0.76
+ -
+  - 345
+  - 185
+  - 0.68
+ -
+  - 223
+  - 150
+  - 0.60
+ -
+  - 0
+  - 125
+  - 0.52
+ #-
+  #- 340
+  #- 124
+  #- 0.48
+ -
+  - 500
+  - 100
+  - 0.44
+ -
+  - 90
+  - 95
+  - 0.36
+ -
+  - 245
+  - 90
+  - 0.28
+ -
+  - 400
+  - 85
+  - 0.20
+ -
+  - 315
+  - 80
+  - 0.12
