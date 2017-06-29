@@ -1,12 +1,36 @@
 ---
 fps: 25
-badgerfps: 12
-badger_every: 8
 assets:
- background: assets/background.png
- sprite: assets/dickbutt-badger-2.png
- mushroom: assets/mushroom-goatse.png
- snake: assets/cup.png
+ background:
+  src: assets/background.png
+  fps: 24
+  x: 0
+  y: 0
+ badger:
+  src: assets/dickbutt-badger.png
+  fps: 12
+  duration: 4.5
+  x: 0
+  y: 0
+ mushroom:
+  src: assets/mushroom-goatse.png
+  fps: 2
+  duration: 1.5
+  x: 0
+  y: 0
+ snake:
+  src: assets/cup.png
+  fps: 12
+  duration: 6
+  x: 0
+  y: 75
+scenes:
+ - badgers
+ - mushrooms
+ - badgers
+ - mushrooms
+ - badgers
+ - snake
 timeline:
  -
   - 20
