@@ -7,14 +7,14 @@ use FFmpeg::Command;
 use Term::ProgressBar;
 use YAML;
 use Moo;
+use Data::Dumper;
 
-has config=>(is=>'ro');
+has config=>(is=>'rw');
 has configuration=>(is=>'lazy');
 has filemask=>(is=>'lazy');
 
 has tempfiles=>(is=>'rw',default=>sub {[];});
 has format =>(is=>'rw',default => sub {"mp4";});
-
 
 
 sub progress {
@@ -63,6 +63,7 @@ sub render_final {
 
     my $cfile = sprintf("%s/concat_files.txt",$self->conf("tmpdir"));
 
+
     open(FO,">",$cfile);
     foreach my $scene (@{$self->conf("scenes")}) {
         say FO sprintf("file '%s'",concat_filename($args{segments}->{$scene})) if (-f $args{segments}->{$scene});
@@ -72,10 +73,10 @@ sub render_final {
     # apparently FFMpeg::COmmand goofs up the order of args
     my $res = `ffmpeg -f concat -safe 0 -y -i $cfile -c copy $self->{configuration}->{out}`;
 
-    unlink($cfile);
+    #unlink($cfile);
     unless($self->conf("preserve_tempfiles")) {
         foreach my $file (values %{$args{segments}}) {
-            unlink($file);
+            #unlink($file);
         }
     }
 }

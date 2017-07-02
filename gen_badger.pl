@@ -19,6 +19,8 @@ die "Usage: $0 --config <file> --out <file> [--overwrite]" if (!-f $opt{config} 
 
 $opt{tmpdir}||="/tmp";
 
+say Dumper(\%opt);
+
 our $badger = Badger->new(config=>$opt{config});
 $badger->consume(%opt);
 
@@ -41,8 +43,8 @@ my ($bgw,$bgh) = $background->Get("width","height");
 
 my $rendered = {
 	badgers=>render_badgers(sprites=>$sprites,bg=>$background),
-	mushrooms=>render_mushrooms(sprites=>$mushrooms,bg=>$background),
-	snake=>render_snake(sprites=>$snakes,bg=>$background)
+	mushroom=>render_mushrooms(sprites=>$mushrooms,bg=>$background,asset=>"mushroom"),
+	snake=>render_mushrooms(sprites=>$snakes,bg=>$background,asset=>"snake"),
 };
 $badger->render_final(segments=>$rendered);
 
@@ -105,7 +107,9 @@ sub render_badgers {
 sub render_mushrooms {
     my (%args) = @_;
 
-	my $conf = $badger->asset("mushroom");
+	
+
+	my $conf = $badger->asset($args{asset});
     my $total_frames = int($badger->conf("fps")*$conf->{duration});
     my $fps_diff = $conf->{fps}/$total_frames;
 	my $sprites = $args{sprites};
@@ -113,10 +117,12 @@ sub render_mushrooms {
 	
     for (my $i=0;$i<$total_frames;$i++) {
         my $frame_to_render = int(($i*$fps_diff) % scalar(@$sprites));
-		$badger->writefile($sprites->[$frame_to_render],$i);
+		my $frame = $args{bg}->Clone();
+		$frame->Composite(image=>$sprites->[$frame_to_render],compose=>"over".gravity=>"northwest",x=>0,y=>0);
+		$badger->writefile($frame,$i);
     	$progress->update($i);
 	}
-	return $badger->render_video(sequence=>"mushroom");
+	return $badger->render_video(sequence=>$args{asset});
 }
 
 sub render_snake {
