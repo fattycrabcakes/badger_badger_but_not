@@ -1,4 +1,4 @@
 #!/bin/sh
 
-cpan install YAML FFmpeg::Command Term::ReadKey Term::ProgressBar Image::Magick
+perl Build.PL && ./Build installdeps && rm Build
 
